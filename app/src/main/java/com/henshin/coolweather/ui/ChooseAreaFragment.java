@@ -3,6 +3,7 @@ package com.henshin.coolweather.ui;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -152,7 +153,7 @@ public class ChooseAreaFragment extends Fragment
         }else{
             int provinceCode = selectProvince.getProvinceCode();
             String address = "http://guolin.tech/api/china/"+provinceCode;
-            queryFromServer(address,"City");
+            queryFromServer(address,"city");
         }
     }
     private void queryCounties()
