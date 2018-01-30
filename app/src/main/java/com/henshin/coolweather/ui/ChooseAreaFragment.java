@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.henshin.coolweather.MainActivity;
 import com.henshin.coolweather.R;
 import com.henshin.coolweather.db.City;
 import com.henshin.coolweather.db.County;
@@ -106,10 +107,19 @@ public class ChooseAreaFragment extends Fragment
                 else if(currentLevel == LEVEL_COUNTY)
                 {
                     String weatherid = countyList.get(position).getweatherId();
-                    Intent intent = new Intent(getActivity(),WeatherActivity.class);
-                    intent.putExtra("weather_id",weatherid);
-                    startActivity(intent);
-                    getActivity().finish();
+                    if(getActivity() instanceof MainActivity)
+                    {
+                        Intent intent = new Intent(getActivity(),WeatherActivity.class);
+                        intent.putExtra("weather_id",weatherid);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else if(getActivity() instanceof WeatherActivity)
+                    {
+                        WeatherActivity activity = (WeatherActivity)getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.swipeRefreshLayout.setRefreshing(true);
+                        activity.requestWeather(weatherid);
+                    }
                 }
             }
         });
@@ -199,7 +209,7 @@ public class ChooseAreaFragment extends Fragment
                     @Override
                     public void run() {
                         closeProgressDialog();
-                        Toast.makeText(getContext(),"加载失败",Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(),"加载失败",Toast.LENGTH_SHORT).show();
                     }
                 });
             }
