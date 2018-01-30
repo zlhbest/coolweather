@@ -27,7 +27,7 @@
             android:background="@drawable/ic_back" />
     </RelativeLayout>
     <ListView
-        android:id="@+id/List_view"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

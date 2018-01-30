@@ -78,7 +78,7 @@ public class ChooseAreaFragment extends Fragment
         View view = inflater.inflate(R.layout.choose_area,container,false);
         titleText = (TextView)view.findViewById(R.id.title_text);
         backButton = (Button)view.findViewById(R.id.back_button);
-        listView = (ListView)view.findViewById(R.id.List_view);
+        listView = (ListView)view.findViewById(R.id.list);
         adapter=new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,dataList);
         listView.setAdapter(adapter);
         return view;
@@ -170,7 +170,7 @@ public class ChooseAreaFragment extends Fragment
             }
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
-            currentLevel=LEVEL_CITY;
+            currentLevel=LEVEL_COUNTY;
         }else{
             int provinceCode = selectProvince.getProvinceCode();
             int cityCode = selectCity.getcityCode();
