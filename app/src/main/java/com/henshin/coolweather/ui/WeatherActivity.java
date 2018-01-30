@@ -1,5 +1,6 @@
 package com.henshin.coolweather.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -22,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.henshin.coolweather.R;
 import com.henshin.coolweather.gson.Forecast;
 import com.henshin.coolweather.gson.Weather;
+import com.henshin.coolweather.service.AutoUpdateService;
 import com.henshin.coolweather.util.HttpUtil;
 import com.henshin.coolweather.util.Utility;
 
@@ -201,6 +203,8 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherlayout.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);//启动服务，这样就就可以一直在后台更新了
     }
     private  void loadBingPic()
     {
