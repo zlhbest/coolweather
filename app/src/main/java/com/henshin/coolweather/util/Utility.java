@@ -2,9 +2,11 @@ package com.henshin.coolweather.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.henshin.coolweather.db.City;
 import com.henshin.coolweather.db.County;
 import com.henshin.coolweather.db.Province;
+import com.henshin.coolweather.gson.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -97,7 +99,7 @@ public class Utility
                     JSONObject countyObject = allCounty.getJSONObject(i);
                     County county = new County();
                     county.setcountyName(countyObject.getString("name"));
-                    county.setweatherId(countyObject.getInt("id"));
+                    county.setweatherId(countyObject.getString("weather_id"));
                     county.setcityId(cityId);
                     county.save();
                 }
@@ -109,6 +111,27 @@ public class Utility
             }
         }
         return false;
+    }
+
+    /**
+     * 将返回JSON数据解析成Weather实体类
+     * @param response
+     * @return
+     */
+    public static Weather handleWeatherResponse(String response)
+    {
+        try
+        {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent,Weather.class);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        return  null;
     }
 
 }

@@ -2,6 +2,7 @@ package com.henshin.coolweather.ui;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import com.henshin.coolweather.util.Utility;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +103,14 @@ public class ChooseAreaFragment extends Fragment
                     selectCity = cityList.get(position);
                     queryCounties();
                 }
+                else if(currentLevel == LEVEL_COUNTY)
+                {
+                    String weatherid = countyList.get(position).getweatherId();
+                    Intent intent = new Intent(getActivity(),WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherid);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
             }
         });
         backButton.setOnClickListener(new View.OnClickListener(){
@@ -161,7 +171,7 @@ public class ChooseAreaFragment extends Fragment
         titleText.setText(selectCity.getcityName());
         backButton.setVisibility(View.VISIBLE);
         countyList = DataSupport.where("cityid = ?",String.valueOf(selectCity.getId())).find(County.class);
-        if(cityList.size()>0)
+        if(countyList.size()>0)
         {
             dataList.clear();
             for(County county :countyList)

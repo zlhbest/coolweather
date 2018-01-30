@@ -2,7 +2,7 @@
     <dbname value="cool_weather"/>
 
     <version value="1"/>
-
+<!--c5a3776d3eb64cb7b67a09b498f6fe58-->
     <list>
         <mapping class = "com.henshin.coolweather.db.Province"/>
         <mapping class = "com.henshin.coolweather.db.City"/>
